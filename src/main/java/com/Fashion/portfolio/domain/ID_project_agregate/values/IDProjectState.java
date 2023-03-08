@@ -9,7 +9,7 @@ public class IDProjectState implements ValueObject<IDProjectState.Props> {
         this.isActive = true;
     }
 
-    public IDProjectState(String state, Boolean isActive) {
+    private IDProjectState(String state, Boolean isActive) {
         this.state = state;
         this.isActive = isActive;
     }

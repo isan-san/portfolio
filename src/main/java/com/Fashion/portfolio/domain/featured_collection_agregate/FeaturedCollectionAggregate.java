@@ -15,15 +15,16 @@ public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
     protected PublishingInformation publishingInformation;
 
     public FeaturedCollectionAggregate(String projectDescription, String paragraph,
-                                       String name, String role, String partnerDescription) {
+                                       String name, String role, String partnerDescription, String editor) {
         super(new FeaturedCollectionID());
         subscribe(new FeaturedCollectionChange(this));
-        appendChange(new FeaturedCollectionCreated(projectDescription, paragraph, name, role, partnerDescription)).apply();
+        appendChange(new FeaturedCollectionCreated(projectDescription, paragraph, name, role, partnerDescription, editor)).apply();
     }
 
     private FeaturedCollectionAggregate(String ID) {
         super(FeaturedCollectionID.of(ID));
     }
+
 
     private FeaturedCollectionAggregate from(String ID, ArrayList<DomainEvent> events) {
         FeaturedCollectionAggregate project = new FeaturedCollectionAggregate(ID);

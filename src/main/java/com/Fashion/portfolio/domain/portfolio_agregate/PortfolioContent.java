@@ -3,19 +3,21 @@ package com.Fashion.portfolio.domain.portfolio_agregate;
 import com.Fashion.portfolio.domain.common_project.values.DescriptionContent;
 import com.Fashion.portfolio.domain.common_project.values.MediaContent;
 import com.Fashion.portfolio.domain.common_project.values.ProjectContentID;
+import com.Fashion.portfolio.domain.portfolio_agregate.values.PortfolioContentID;
+import com.Fashion.portfolio.domain.portfolio_agregate.values.PortfolioID;
 import com.Fashion.portfolio.generic.Entity;
 import com.Fashion.portfolio.generic.Identity;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class PortfolioContent extends Entity<ProjectContentID> {
+public class PortfolioContent extends Entity<PortfolioContentID> {
 
     private ArrayList<DescriptionContent> descriptionContents;
     private ArrayList<MediaContent> mediaContents;
 
 
-    public PortfolioContent(ProjectContentID ID) {
+    public PortfolioContent(PortfolioContentID ID) {
         super(ID);
     }
 

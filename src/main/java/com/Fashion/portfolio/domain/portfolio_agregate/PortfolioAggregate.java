@@ -10,16 +10,16 @@ import java.time.LocalDate;
 
 public class PortfolioAggregate extends AggregateRoot<PortfolioID> {
 
-    private PortfolioVersion version;
-    private PortfolioContent content;
-    private SeasonProjects seasonProjects;
-    private Season season;
+    protected PortfolioVersionHandler versions;
+    protected PortfolioContent content;
+    protected SeasonProjects seasonProjects;
+    protected Season season;
 
 
     public PortfolioAggregate(LocalDate seasonStartDate, LocalDate seasonEndDate) {
         super(new PortfolioID());
         subscribe(new PortfolioChange(this));
-        appendChange(new PortfolioCreated());
+        appendChange(new PortfolioCreated(seasonStartDate, seasonEndDate));
 
     }
 }
