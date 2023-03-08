@@ -1,0 +1,57 @@
+package com.Fashion.portfolio.domain.portfolio_agregate;
+
+import com.Fashion.portfolio.domain.common_project.values.DescriptionContent;
+import com.Fashion.portfolio.domain.common_project.values.MediaContent;
+import com.Fashion.portfolio.domain.common_project.values.ProjectContentID;
+import com.Fashion.portfolio.generic.Entity;
+import com.Fashion.portfolio.generic.Identity;
+
+import java.util.ArrayList;
+import java.util.Optional;
+
+public class PortfolioContent extends Entity<ProjectContentID> {
+
+    private ArrayList<DescriptionContent> descriptionContents;
+    private ArrayList<MediaContent> mediaContents;
+
+
+    public PortfolioContent(ProjectContentID ID) {
+        super(ID);
+    }
+
+    public ArrayList<DescriptionContent> descriptionContents() {
+        return this.descriptionContents;
+    }
+
+    public ArrayList<MediaContent> mediaContents() {
+        return this.mediaContents;
+    }
+
+    public DescriptionContent addContent(DescriptionContent content) {
+        if (descriptionContents.stream().noneMatch(contents -> contents.value().title().equals((content).value().title()))) {
+            descriptionContents.add(content);
+            return content;
+        } else {
+            return null;
+        }
+    }
+
+    public MediaContent addContent(MediaContent content) {
+        if (mediaContents.stream().noneMatch(contents -> contents.value().title().equals((content).value().title()))) {
+            mediaContents.add(content);
+            return content;
+        } else {
+            return null;
+        }
+    }
+
+    public DescriptionContent findDescription(String title) {
+        Optional<DescriptionContent> newContent = this.descriptionContents.stream().filter(contents -> contents.value().title().equals(title)).findFirst();
+        return newContent.flatMap(content -> newContent).orElse(null);
+    }
+
+    public MediaContent findMedia(String title) {
+        Optional<MediaContent> newContent = this.mediaContents.stream().filter(contents -> contents.value().title().equals(title)).findFirst();
+        return newContent.flatMap(content -> newContent).orElse(null);
+    }
+}
