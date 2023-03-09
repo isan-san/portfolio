@@ -2,6 +2,7 @@ package com.Fashion.portfolio.domain.common_project;
 
 import com.Fashion.portfolio.domain.common_project.values.DescriptionContent;
 import com.Fashion.portfolio.domain.common_project.values.DesignTeamID;
+import com.Fashion.portfolio.domain.common_project.values.MediaContent;
 import com.Fashion.portfolio.domain.common_project.values.ProjectContentID;
 import com.Fashion.portfolio.generic.AggregateRoot;
 import com.Fashion.portfolio.generic.Identity;
@@ -42,5 +43,18 @@ public class Project<T extends Identity> extends AggregateRoot<T> {
     public Boolean verifyDesigner(String name) {
         return designTeam.designers().stream().noneMatch(designer -> designer.value().name().equals(name));
     }
+
+    protected void addProjectMediaContent(String title, String description, String author, String URL) {
+        this.projectContent.addContent(new MediaContent(title, description, author, URL));
+    }
+
+    protected void addProjectDescriptionContent(String title, String description, String author, String paragraph) {
+        this.projectContent.addContent(new DescriptionContent(title, description, author, paragraph));
+    }
+
+    public Boolean verifyContent(String title) {
+        return projectContent.descriptionContents().stream().noneMatch(designer -> designer.value().title().equals(title))||projectContent.mediaContents().stream().noneMatch(designer -> designer.value().title().equals(title));
+    }
+
 
 }

@@ -14,19 +14,19 @@ public class ProjectContent extends Entity<ProjectContentID> {
 
     private ArrayList<MediaContent> mediaContents;
 
-    public ProjectContent(ProjectContentID id) {
+    protected ProjectContent(ProjectContentID id) {
         super(id);
     }
 
-    public ArrayList<DescriptionContent> descriptionContents() {
+    protected ArrayList<DescriptionContent> descriptionContents() {
         return descriptionContents;
     }
 
-    public ArrayList<MediaContent> mediaContents() {
+    protected ArrayList<MediaContent> mediaContents() {
         return mediaContents;
     }
 
-    public DescriptionContent addContent(DescriptionContent content){
+    protected DescriptionContent addContent(DescriptionContent content){
         if (descriptionContents.stream().noneMatch(contents -> contents.value().title().equals((content).value().title()))) {
             descriptionContents.add(content);
             return content;
@@ -34,7 +34,7 @@ public class ProjectContent extends Entity<ProjectContentID> {
             return null;
         }
     }
-    public MediaContent addContent(MediaContent content){
+    protected MediaContent addContent(MediaContent content){
         if (mediaContents.stream().noneMatch(contents -> contents.value().title().equals((content).value().title()))) {
             mediaContents.add(content);
             return content;

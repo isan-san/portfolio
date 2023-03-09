@@ -1,8 +1,10 @@
 package com.Fashion.portfolio.domain.own_collection_agregate;
 
 import com.Fashion.portfolio.domain.common_project.Project;
+import com.Fashion.portfolio.domain.common_project.events.DescriptionContentAdded;
 import com.Fashion.portfolio.domain.common_project.events.DesignerAdded;
 import com.Fashion.portfolio.domain.common_project.events.DesignerRemoved;
+import com.Fashion.portfolio.domain.common_project.events.MediaContentAdded;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.PublishingInformation;
 import com.Fashion.portfolio.domain.own_collection_agregate.events.OwnCollectionCreated;
 import com.Fashion.portfolio.domain.own_collection_agregate.values.OwnCollectionID;
@@ -36,20 +38,35 @@ public class OwnCollectionAggregate extends Project<OwnCollectionID> {
         firstContent(projectDescription, paragraph);
     }
 
+    public void designerAdded(String name, String role, String description) {
+        appendChange(new DesignerAdded(name, role, description)).apply();
+    }
+
     public void designerRemoved(String name) {
         appendChange(new DesignerRemoved(name)).apply();
+    }
+
+    public void mediaContentAdded(String title, String description, String author, String URL){
+        appendChange(new MediaContentAdded(title, description, author, URL)).apply();
+    }
+
+    public void descriptionContentAdded(String title, String description, String author, String paragraph){
+        appendChange(new DescriptionContentAdded(title, description, author, paragraph)).apply();
     }
 
     protected Boolean removeDesigner(String name) {
         return removeDesigner(name);
     }
 
-    public void designerAdded(String name, String role, String description) {
-        appendChange(new DesignerAdded(name, role, description)).apply();
-    }
-
     protected void addDesigner(String name, String role, String description) {
         addDesigner(name, role, description);
     }
 
+    protected void addMediaContent(String title, String description, String author, String URL) {
+        addProjectMediaContent(title, description, author, URL);
+    }
+
+    protected void addDescriptionContent(String title, String description, String author, String paragraph) {
+        addProjectDescriptionContent(title, description, author, paragraph);
+    }
 }

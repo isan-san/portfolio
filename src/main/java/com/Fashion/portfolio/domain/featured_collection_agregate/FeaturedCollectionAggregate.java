@@ -1,15 +1,16 @@
 package com.Fashion.portfolio.domain.featured_collection_agregate;
 
 import com.Fashion.portfolio.domain.common_project.Project;
+import com.Fashion.portfolio.domain.common_project.events.DescriptionContentAdded;
 import com.Fashion.portfolio.domain.common_project.events.DesignerAdded;
 import com.Fashion.portfolio.domain.common_project.events.DesignerRemoved;
+import com.Fashion.portfolio.domain.common_project.events.MediaContentAdded;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.FeaturedCollectionCreated;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.FeaturedCollectionID;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.FeaturedPartner;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.PublishingInformation;
 import com.Fashion.portfolio.generic.DomainEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
@@ -47,6 +48,14 @@ public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
         appendChange(new DesignerRemoved(name)).apply();
     }
 
+    public void mediaContentAdded(String title, String description, String author, String URL){
+        appendChange(new MediaContentAdded(title, description, author, URL)).apply();
+    }
+
+    public void descriptionContentAdded(String title, String description, String author, String paragraph){
+        appendChange(new DescriptionContentAdded(title, description, author, paragraph)).apply();
+    }
+
     protected Boolean removeDesigner(String name) {
         return removeDesigner(name);
     }
@@ -55,4 +64,12 @@ public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
         addDesigner(name, role, description);
     }
 
+
+    protected void addMediaContent(String title, String description, String author, String URL) {
+        addProjectMediaContent(title, description, author, URL);
+    }
+
+    protected void addDescriptionContent(String title, String description, String author, String paragraph) {
+        addProjectDescriptionContent(title, description, author, paragraph);
+    }
 }
