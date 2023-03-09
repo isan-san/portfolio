@@ -4,26 +4,26 @@ import com.Fashion.portfolio.generic.DomainEvent;
 
 public class DesignerAdded extends DomainEvent {
 
-    private final String name;
-    private final String role;
-    private final String description;
+    private final String designerName;
+    private final String designerRole;
+    private final String designerDescription;
 
     public DesignerAdded(String name, String role, String description) {
         super("franco.isan.DesignerAdded");
-        this.name = name;
-        this.role = role;
-        this.description = description;
+        this.designerName = name;
+        this.designerRole = role;
+        this.designerDescription = description;
     }
 
-    public String getName() {
-        return name;
+    public String getDesignerName() {
+        return designerName;
     }
 
-    public String getRole() {
-        return role;
+    public String getDesignerRole() {
+        return designerRole;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDesignerDescription() {
+        return designerDescription;
     }
 }

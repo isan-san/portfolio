@@ -1,5 +1,7 @@
 package com.Fashion.portfolio.domain.featured_collection_agregate;
 
+import com.Fashion.portfolio.domain.common_project.events.DesignerAdded;
+import com.Fashion.portfolio.domain.common_project.events.DesignerRemoved;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.FeaturedCollectionCreated;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.FeaturedPartner;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.PublishingInformation;
@@ -13,6 +15,15 @@ public class FeaturedCollectionChange extends EventChange {
             project.publishingInformation = new PublishingInformation(event.getEditor());
             project.partner = new FeaturedPartner(event.getName(), event.getRole(), event.getPartnerDescription());
         });
+
+        apply((DesignerAdded event) -> {
+            project.addDesigner(event.getDesignerName(), event.getDesignerRole(), event.getDesignerDescription());
+        });
+        apply((DesignerRemoved event) -> {
+            project.removeDesigner(event.getDesignerName());
+        });
+
+
 
     }
 

@@ -1,20 +1,19 @@
 package com.Fashion.portfolio.domain.common_project;
 
-import com.Fashion.portfolio.domain.common_project.events.ProjectCreated;
 import com.Fashion.portfolio.domain.common_project.values.DescriptionContent;
 import com.Fashion.portfolio.domain.common_project.values.DesignTeamID;
 import com.Fashion.portfolio.domain.common_project.values.ProjectContentID;
-import com.Fashion.portfolio.domain.common_project.values.ProjectID;
 import com.Fashion.portfolio.generic.AggregateRoot;
 import com.Fashion.portfolio.generic.Identity;
 
-public class  Project<T extends Identity> extends AggregateRoot<T> {
+
+public class Project<T extends Identity> extends AggregateRoot<T> {
 
     protected DesignTeam designTeam;
     protected ProjectContent projectContent;
 
     public Project(T ID, String description, String paragraph) {
-        super (ID);
+        super(ID);
     }
 
     protected Project(T ID) {
@@ -31,4 +30,17 @@ public class  Project<T extends Identity> extends AggregateRoot<T> {
                 "Design Team",
                 true));
     }
+
+    protected void addDesigner(String name, String role, String description) {
+        this.designTeam.addDesigner(name, role, description);
+    }
+
+    protected Boolean removeDesigner(String name) {
+        return this.designTeam.removeDesigner(name);
+    }
+
+    public Boolean verifyDesigner(String name) {
+        return designTeam.designers().stream().noneMatch(designer -> designer.value().name().equals(name));
+    }
+
 }
