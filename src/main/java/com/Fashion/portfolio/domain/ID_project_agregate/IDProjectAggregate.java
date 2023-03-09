@@ -16,8 +16,8 @@ public class IDProjectAggregate extends Project<IDProjectID> {
 
     protected IDProjectState state;
 
-    public IDProjectAggregate(IDProjectID ID, String projectDescription, String paragraph) {
-        super(ID);
+    public IDProjectAggregate(String projectDescription, String paragraph) {
+        super(new IDProjectID());
         subscribe(new IDProjectChange(this));
         appendChange(new IDProjectCreated(projectDescription, paragraph)).apply();
     }

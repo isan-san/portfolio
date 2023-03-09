@@ -13,7 +13,7 @@ public class OwnCollectionAggregate extends Project<OwnCollectionID> {
     protected PublishingInformation publishingInformation;
 
     public OwnCollectionAggregate(String projectDescription, String paragraph,
-                                  String name, String role, String partnerDescription, String editor) {
+                                  String editor) {
         super(new OwnCollectionID());
         subscribe(new OwnCollectionChange(this));
         appendChange(new OwnCollectionCreated(projectDescription, paragraph, editor)).apply();
