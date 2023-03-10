@@ -21,6 +21,11 @@ public class PortfolioContent extends Entity<PortfolioContentID> {
         super(ID);
     }
 
+    public void flushContent(){
+        this.descriptionContents = new ArrayList<DescriptionContent>();
+        this.mediaContents = new ArrayList<MediaContent>();
+    }
+
     public ArrayList<DescriptionContent> descriptionContents() {
         return this.descriptionContents;
     }

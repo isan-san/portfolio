@@ -1,13 +1,8 @@
 package com.Fashion.portfolio.domain.portfolio_agregate;
 
-import com.Fashion.portfolio.domain.common_project.events.DescriptionContentAdded;
-import com.Fashion.portfolio.domain.common_project.events.MediaContentAdded;
 import com.Fashion.portfolio.domain.common_project.values.DescriptionContent;
 import com.Fashion.portfolio.domain.common_project.values.MediaContent;
-import com.Fashion.portfolio.domain.portfolio_agregate.events.FeaturedCollectionAdded;
-import com.Fashion.portfolio.domain.portfolio_agregate.events.IDProjectAdded;
-import com.Fashion.portfolio.domain.portfolio_agregate.events.OwnCollectionAdded;
-import com.Fashion.portfolio.domain.portfolio_agregate.events.PortfolioCreated;
+import com.Fashion.portfolio.domain.portfolio_agregate.events.*;
 import com.Fashion.portfolio.domain.portfolio_agregate.values.PortfolioID;
 import com.Fashion.portfolio.domain.portfolio_agregate.values.Season;
 import com.Fashion.portfolio.generic.AggregateRoot;
@@ -40,12 +35,20 @@ public class PortfolioAggregate extends AggregateRoot<PortfolioID> {
         return portfolio;
     }
 
-    public void mediaContentAdded(String title, String description, String author, String URL) {
-        appendChange(new MediaContentAdded(title, description, author, URL));
+    public void publishPortfolioVersion(){
+        appendChange(new PortfolioVersionPublished());
     }
 
-    public void descriptionContentAdded(String title, String description, String author, String paragraph) {
-        appendChange(new DescriptionContentAdded(title, description, author, paragraph));
+    public void descriptionContentAppended(DescriptionContent content){
+        appendChange(new DescriptionContentAppended(content));
+    }
+
+    public void mediaContentAppended(MediaContent content){
+        appendChange(new MediaContentAppended(content));
+    }
+
+    public void releasePortfolioVersion(){
+        this.versions.publishVersion(this.content.descriptionContents(),this.content.mediaContents());
     }
 
     public void addFeaturedCollection(String projectID) {
@@ -60,12 +63,12 @@ public class PortfolioAggregate extends AggregateRoot<PortfolioID> {
         appendChange(new IDProjectAdded(projectID));
     }
 
-    protected void addMediaContent(String title, String description, String author, String URL) {
-        content.addContent(new MediaContent(title, description, author, URL));
+    protected void appendMediaContent(MediaContent newContent) {
+        content.addContent(newContent);
     }
 
-    protected void addDescriptionContent(String title, String description, String author, String paragraph) {
-        content.addContent(new DescriptionContent(title, description, author, paragraph));
+    protected void appendDescriptionContent(DescriptionContent newContent) {
+        content.addContent(newContent);
     }
 
 }

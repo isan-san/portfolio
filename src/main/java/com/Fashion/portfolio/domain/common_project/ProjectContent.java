@@ -60,5 +60,11 @@ public class ProjectContent extends Entity<ProjectContentID> {
         }).orElse(null);
     }
 
+    public DescriptionContent findDescriptionContent(String title){
+        return this.descriptionContents.stream().filter(content->content.value().title().equals(title)).findFirst().orElse(null);
+    }
+    public MediaContent findMediaContent(String title){
+        return this.mediaContents.stream().filter(content->content.value().title().equals(title)).findFirst().orElse(null);
+    }
 
 }

@@ -4,7 +4,9 @@ import com.Fashion.portfolio.domain.common_project.DesignTeam;
 import com.Fashion.portfolio.domain.common_project.Project;
 import com.Fashion.portfolio.domain.common_project.ProjectContent;
 import com.Fashion.portfolio.domain.common_project.events.*;
+import com.Fashion.portfolio.domain.common_project.values.DescriptionContent;
 import com.Fashion.portfolio.domain.common_project.values.DesignTeamID;
+import com.Fashion.portfolio.domain.common_project.values.MediaContent;
 import com.Fashion.portfolio.domain.common_project.values.ProjectContentID;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.FeaturedCollectionCreated;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.PartnerApproved;
@@ -114,6 +116,14 @@ public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
 
     protected void publishMediaContent (String title){
         publishMedia(title);
+    }
+
+    public DescriptionContent findDescriptionContent (String title){
+        return this.projectContent.findDescriptionContent(title);
+    }
+
+    public MediaContent findMediaContent (String title){
+        return this.projectContent.findMediaContent(title);
     }
 
 }

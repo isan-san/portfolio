@@ -1,16 +1,9 @@
 package com.Fashion.portfolio.domain.portfolio_agregate;
 
 import com.Fashion.portfolio.domain.ID_project_agregate.values.IDProjectID;
-import com.Fashion.portfolio.domain.common_project.events.DescriptionContentAdded;
-import com.Fashion.portfolio.domain.common_project.events.MediaContentAdded;
-import com.Fashion.portfolio.domain.common_project.values.DescriptionContent;
-import com.Fashion.portfolio.domain.common_project.values.MediaContent;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.FeaturedCollectionID;
 import com.Fashion.portfolio.domain.own_collection_agregate.values.OwnCollectionID;
-import com.Fashion.portfolio.domain.portfolio_agregate.events.FeaturedCollectionAdded;
-import com.Fashion.portfolio.domain.portfolio_agregate.events.IDProjectAdded;
-import com.Fashion.portfolio.domain.portfolio_agregate.events.OwnCollectionAdded;
-import com.Fashion.portfolio.domain.portfolio_agregate.events.PortfolioCreated;
+import com.Fashion.portfolio.domain.portfolio_agregate.events.*;
 import com.Fashion.portfolio.domain.portfolio_agregate.values.PortfolioContentID;
 import com.Fashion.portfolio.domain.portfolio_agregate.values.PortfolioVersionHandlerID;
 import com.Fashion.portfolio.domain.portfolio_agregate.values.Season;
@@ -26,12 +19,6 @@ public class PortfolioChange extends EventChange {
             portfolio.seasonProjects = new SeasonProjects(new SeasonProjectsID());
             portfolio.season = new Season(event.getSeasonStartDate(),event.getSeasonEndDate());
         });
-        apply((MediaContentAdded event)->{
-            portfolio.content.addContent(new MediaContent(event.getTitle(), event.getDescription(), event.getAuthor(), event.getURL()));
-        });
-        apply((DescriptionContentAdded event)->{
-            portfolio.content.addContent(new DescriptionContent(event.getTitle(), event.getDescription(), event.getAuthor(), event.getParagraph()));
-        });
         apply((FeaturedCollectionAdded event)->{
             portfolio.seasonProjects.addProject(FeaturedCollectionID.of(event.getCollectionID()));
         });
@@ -40,6 +27,16 @@ public class PortfolioChange extends EventChange {
         });
         apply((IDProjectAdded event)->{
             portfolio.seasonProjects.addProject(IDProjectID.of(event.getProjectID()));
+        });
+        apply((PortfolioVersionPublished event)->{
+            portfolio.releasePortfolioVersion();
+            portfolio.content.flushContent();
+        });
+        apply((DescriptionContentAppended event)->{
+            portfolio.appendDescriptionContent(event.getContent());
+        });
+        apply((MediaContentAppended event)->{
+            portfolio.appendMediaContent(event.getContent());
         });
     }
 
