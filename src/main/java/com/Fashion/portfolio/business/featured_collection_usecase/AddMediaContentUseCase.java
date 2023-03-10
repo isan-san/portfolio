@@ -24,7 +24,7 @@ public class AddMediaContentUseCase implements UseCaseCommand<AddMediaContent> {
         List<DomainEvent> events = eventRepository.findByAggregateRootId(command.getProjectID());
         FeaturedCollectionAggregate collection = FeaturedCollectionAggregate.from(command.getProjectID(), events);
         if (collection.verifyContent(command.getTitle())) {
-            collection.descriptionContentAdded(command.getTitle(), command.getAuthor(), command.getDescription(), command.getURL());
+            collection.mediaContentAdded(command.getTitle(), command.getAuthor(), command.getDescription(), command.getURL());
             return collection.getUncommittedChanges().stream().map(eventRepository::saveEvent).collect(Collectors.toList());
         } else {
             return null;

@@ -1,6 +1,8 @@
 package com.Fashion.portfolio.domain.ID_project_agregate;
 
 import com.Fashion.portfolio.domain.ID_project_agregate.events.IDProjectCreated;
+import com.Fashion.portfolio.domain.ID_project_agregate.events.ProjectFinished;
+import com.Fashion.portfolio.domain.ID_project_agregate.events.ProjectStateChanged;
 import com.Fashion.portfolio.domain.ID_project_agregate.values.IDProjectID;
 import com.Fashion.portfolio.domain.ID_project_agregate.values.IDProjectState;
 import com.Fashion.portfolio.domain.common_project.Project;
@@ -61,6 +63,18 @@ public class IDProjectAggregate extends Project<IDProjectID> {
 
     public void mediaContentPublished(String title){
         appendChange(new MediaContentPublished(title)).apply();
+    }
+
+    public void projectFinished(){
+        appendChange(new ProjectFinished());
+    }
+
+    public void projectStateChanged(String newState){
+        appendChange(new ProjectStateChanged(newState));
+    }
+
+    public Boolean verifyProjectFinished(){
+        return this.state.value().isActive();
     }
 
     protected Boolean removeDesigner(String name) {

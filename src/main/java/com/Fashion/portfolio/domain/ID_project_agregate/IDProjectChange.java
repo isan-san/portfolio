@@ -1,19 +1,19 @@
 package com.Fashion.portfolio.domain.ID_project_agregate;
 
+import com.Fashion.portfolio.domain.ID_project_agregate.events.IDProjectCreated;
+import com.Fashion.portfolio.domain.ID_project_agregate.events.ProjectFinished;
+import com.Fashion.portfolio.domain.ID_project_agregate.events.ProjectStateChanged;
 import com.Fashion.portfolio.domain.ID_project_agregate.values.IDProjectState;
 import com.Fashion.portfolio.domain.common_project.events.*;
-import com.Fashion.portfolio.domain.featured_collection_agregate.FeaturedCollectionAggregate;
-import com.Fashion.portfolio.domain.featured_collection_agregate.events.FeaturedCollectionCreated;
 import com.Fashion.portfolio.generic.EventChange;
 
 public class IDProjectChange extends EventChange {
 
     public IDProjectChange(IDProjectAggregate project) {
-        apply((FeaturedCollectionCreated event) -> {
+        apply((IDProjectCreated event) -> {
             project.firstProjectContent(event.getProjectDescription(), event.getParagraph());
             project.state = new IDProjectState();
         });
-
         apply((DesignerAdded event) -> {
             project.addDesigner(event.getDesignerName(), event.getDesignerRole(), event.getDesignerDescription());
         });
@@ -31,6 +31,12 @@ public class IDProjectChange extends EventChange {
         });
         apply((MediaContentPublished event) -> {
             project.publishMediaContent(event.getContentTitle());
+        });
+        apply((ProjectStateChanged event) -> {
+            project.state.changeState(event.getNewState());
+        });
+        apply((ProjectFinished event) -> {
+            project.state.finish();
         });
 
     }
