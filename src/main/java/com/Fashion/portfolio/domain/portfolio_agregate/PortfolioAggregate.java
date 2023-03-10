@@ -9,11 +9,12 @@ import com.Fashion.portfolio.domain.portfolio_agregate.events.IDProjectAdded;
 import com.Fashion.portfolio.domain.portfolio_agregate.events.OwnCollectionAdded;
 import com.Fashion.portfolio.domain.portfolio_agregate.events.PortfolioCreated;
 import com.Fashion.portfolio.domain.portfolio_agregate.values.PortfolioID;
-import com.Fashion.portfolio.domain.portfolio_agregate.values.PortfolioVersion;
 import com.Fashion.portfolio.domain.portfolio_agregate.values.Season;
 import com.Fashion.portfolio.generic.AggregateRoot;
+import com.Fashion.portfolio.generic.DomainEvent;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class PortfolioAggregate extends AggregateRoot<PortfolioID> {
 
@@ -29,6 +30,16 @@ public class PortfolioAggregate extends AggregateRoot<PortfolioID> {
         appendChange(new PortfolioCreated(seasonStartDate, seasonEndDate));
     }
 
+    private PortfolioAggregate(String ID) {
+        super(PortfolioID.of(ID));
+    }
+
+    public static PortfolioAggregate from(String ID, List<DomainEvent> events) {
+        PortfolioAggregate portfolio = new PortfolioAggregate(ID);
+        events.forEach(portfolio::applyEvent);
+        return portfolio;
+    }
+
     public void mediaContentAdded(String title, String description, String author, String URL) {
         appendChange(new MediaContentAdded(title, description, author, URL));
     }
@@ -37,22 +48,24 @@ public class PortfolioAggregate extends AggregateRoot<PortfolioID> {
         appendChange(new DescriptionContentAdded(title, description, author, paragraph));
     }
 
+    public void addFeaturedCollection(String projectID) {
+        appendChange(new FeaturedCollectionAdded(projectID));
+    }
+
+    public void addOwnCollection(String projectID) {
+        appendChange(new OwnCollectionAdded(projectID));
+    }
+
+    public void addIDProject(String projectID) {
+        appendChange(new IDProjectAdded(projectID));
+    }
+
     protected void addMediaContent(String title, String description, String author, String URL) {
         content.addContent(new MediaContent(title, description, author, URL));
     }
 
     protected void addDescriptionContent(String title, String description, String author, String paragraph) {
         content.addContent(new DescriptionContent(title, description, author, paragraph));
-    }
-
-    protected void AddFeaturedCollection(String projectID){
-        appendChange(new FeaturedCollectionAdded(projectID));
-    }
-    protected void AddOwnCollection(String projectID){
-        appendChange(new OwnCollectionAdded(projectID));
-    }
-    protected void AddIDProject(String projectID){
-        appendChange(new IDProjectAdded(projectID));
     }
 
 }

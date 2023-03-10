@@ -1,6 +1,8 @@
 package com.Fashion.portfolio.domain.portfolio_agregate.commands;
 
-public class AddFeaturedCollection {
+import com.Fashion.portfolio.generic.Command;
+
+public class AddFeaturedCollection extends Command {
     private final String collectionID;
     private final String portfolioID;
 

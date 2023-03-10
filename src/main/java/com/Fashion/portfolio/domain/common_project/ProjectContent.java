@@ -14,7 +14,7 @@ public class ProjectContent extends Entity<ProjectContentID> {
 
     private ArrayList<MediaContent> mediaContents;
 
-    protected ProjectContent(ProjectContentID id) {
+    public ProjectContent(ProjectContentID id) {
         super(id);
     }
 

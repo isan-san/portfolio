@@ -1,6 +1,8 @@
 package com.Fashion.portfolio.domain.featured_collection_agregate;
 
+import com.Fashion.portfolio.domain.common_project.DesignTeam;
 import com.Fashion.portfolio.domain.common_project.events.*;
+import com.Fashion.portfolio.domain.common_project.values.DesignTeamID;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.FeaturedCollectionCreated;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.PartnerApproved;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.ProjectPublished;
@@ -12,6 +14,8 @@ public class FeaturedCollectionChange extends EventChange {
 
     public FeaturedCollectionChange(FeaturedCollectionAggregate project) {
         apply((FeaturedCollectionCreated event) -> {
+            project.designTeam(event.getDesignTeamID());
+            project.projectContent(event.getProjectContentID());
             project.firstProjectContent(event.getProjectDescription(), event.getParagraph());
             project.publishingInformation = new PublishingInformation(event.getEditor());
             project.partner = new FeaturedPartner(event.getName(), event.getRole(), event.getPartnerDescription());

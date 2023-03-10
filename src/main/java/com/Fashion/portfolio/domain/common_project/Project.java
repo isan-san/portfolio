@@ -13,14 +13,15 @@ public class Project<T extends Identity> extends AggregateRoot<T> {
     protected DesignTeam designTeam;
     protected ProjectContent projectContent;
 
-    public Project(T ID, String description, String paragraph) {
-        super(ID);
-    }
+    //public Project(T ID, String designTeamID, String projectContentID, String description, String paragraph) {
+    //    super(ID);
+    //    this.designTeam = new DesignTeam( DesignTeamID.of(designTeamID));
+    //    this.projectContent = new ProjectContent( ProjectContentID.of(projectContentID));
+    //   firstContent(description, paragraph);
+    //}
 
     protected Project(T ID) {
         super(ID);
-        this.designTeam = new DesignTeam(new DesignTeamID());
-        this.projectContent = new ProjectContent(new ProjectContentID());
     }
 
     protected void firstContent(String description, String paragraph) {

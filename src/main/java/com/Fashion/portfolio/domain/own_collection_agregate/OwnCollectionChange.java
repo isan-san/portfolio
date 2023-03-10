@@ -10,6 +10,8 @@ public class OwnCollectionChange extends EventChange {
 
     public OwnCollectionChange(OwnCollectionAggregate project) {
         apply((OwnCollectionCreated event) -> {
+            project.designTeam(event.getDesignTeamID());
+            project.projectContent(event.getProjectContentID());
             project.firstProjectContent(event.getProjectDescription(), event.getParagraph());
             project.publishingInformation = new PublishingInformation(event.getEditor());
         });

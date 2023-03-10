@@ -1,7 +1,11 @@
 package com.Fashion.portfolio.domain.own_collection_agregate;
 
+import com.Fashion.portfolio.domain.common_project.DesignTeam;
 import com.Fashion.portfolio.domain.common_project.Project;
+import com.Fashion.portfolio.domain.common_project.ProjectContent;
 import com.Fashion.portfolio.domain.common_project.events.*;
+import com.Fashion.portfolio.domain.common_project.values.DesignTeamID;
+import com.Fashion.portfolio.domain.common_project.values.ProjectContentID;
 import com.Fashion.portfolio.domain.own_collection_agregate.events.OwnCollectionCreated;
 import com.Fashion.portfolio.domain.own_collection_agregate.events.ProjectPublished;
 import com.Fashion.portfolio.domain.own_collection_agregate.values.OwnCollectionID;
@@ -15,10 +19,10 @@ public class OwnCollectionAggregate extends Project<OwnCollectionID> {
     protected PublishingInformation publishingInformation;
 
     public OwnCollectionAggregate(String projectDescription, String paragraph,
-                                  String editor) {
+                                  String editor,String designTeamID,String projectContentID) {
         super(new OwnCollectionID());
         subscribe(new OwnCollectionChange(this));
-        appendChange(new OwnCollectionCreated(projectDescription, paragraph, editor)).apply();
+        appendChange(new OwnCollectionCreated(projectDescription, paragraph, editor, designTeamID, projectContentID)).apply();
     }
 
     private OwnCollectionAggregate(String ID) {
@@ -65,6 +69,14 @@ public class OwnCollectionAggregate extends Project<OwnCollectionID> {
 
     public Boolean verifyPublished(){
         return this.publishingInformation.value().isPublished();
+    }
+
+    public void designTeam(String designTeamID){
+        this.designTeam = new DesignTeam(DesignTeamID.of(designTeamID));
+    }
+
+    public void projectContent(String designTeamID){
+        this.projectContent = new ProjectContent(ProjectContentID.of(designTeamID));
     }
 
     protected Boolean removeDesigner(String name) {

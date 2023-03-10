@@ -11,6 +11,8 @@ public class IDProjectChange extends EventChange {
 
     public IDProjectChange(IDProjectAggregate project) {
         apply((IDProjectCreated event) -> {
+            project.designTeam(event.getDesignTeamID());
+            project.projectContent(event.getProjectContentID());
             project.firstProjectContent(event.getProjectDescription(), event.getParagraph());
             project.state = new IDProjectState();
         });

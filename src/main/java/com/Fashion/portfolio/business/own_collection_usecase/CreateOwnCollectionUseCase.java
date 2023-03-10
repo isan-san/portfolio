@@ -19,7 +19,7 @@ public class CreateOwnCollectionUseCase implements UseCaseCommand<CreateOwnColle
 
     @Override
     public List<DomainEvent> apply(CreateOwnCollection command) {
-        OwnCollectionAggregate collection= new OwnCollectionAggregate(command.getProjectDescription(), command.getParagraph(), command.getEditor());
+        OwnCollectionAggregate collection= new OwnCollectionAggregate(command.getProjectDescription(), command.getParagraph(), command.getEditor(), command.getDesignTeamID(), command.getProjectContentID());
         return collection.getUncommittedChanges().stream().map(eventRepository::saveEvent).collect(Collectors.toList());
     }
 }

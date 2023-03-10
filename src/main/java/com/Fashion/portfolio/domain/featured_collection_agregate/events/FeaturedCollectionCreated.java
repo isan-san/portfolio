@@ -10,8 +10,11 @@ public class FeaturedCollectionCreated extends DomainEvent {
     private final String role;
     private final String partnerDescription;
     private final String editor;
+    private final String designTeamID;
+    private final String projectContentID;
 
-    public FeaturedCollectionCreated(String projectDescription, String paragraph, String name, String role, String partnerDescription, String author) {
+
+    public FeaturedCollectionCreated(String projectDescription, String paragraph, String name, String role, String partnerDescription, String author, String designTeamID, String projectContentID) {
         super("franco.isan.FeaturedProjectCreated");
         this.projectDescription = projectDescription;
         this.paragraph = paragraph;
@@ -19,6 +22,8 @@ public class FeaturedCollectionCreated extends DomainEvent {
         this.role = role;
         this.partnerDescription = partnerDescription;
         this.editor = author;
+        this.designTeamID = designTeamID;
+        this.projectContentID = projectContentID;
     }
 
     public String getProjectDescription() {
@@ -48,5 +53,13 @@ public class FeaturedCollectionCreated extends DomainEvent {
 
     public String getEditor() {
         return editor;
+    }
+
+    public String getDesignTeamID() {
+        return designTeamID;
+    }
+
+    public String getProjectContentID() {
+        return projectContentID;
     }
 }

@@ -1,7 +1,11 @@
 package com.Fashion.portfolio.domain.featured_collection_agregate;
 
+import com.Fashion.portfolio.domain.common_project.DesignTeam;
 import com.Fashion.portfolio.domain.common_project.Project;
+import com.Fashion.portfolio.domain.common_project.ProjectContent;
 import com.Fashion.portfolio.domain.common_project.events.*;
+import com.Fashion.portfolio.domain.common_project.values.DesignTeamID;
+import com.Fashion.portfolio.domain.common_project.values.ProjectContentID;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.FeaturedCollectionCreated;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.PartnerApproved;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.ProjectPublished;
@@ -18,10 +22,10 @@ public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
     protected PublishingInformation publishingInformation;
 
     public FeaturedCollectionAggregate(String projectDescription, String paragraph,
-                                       String name, String role, String partnerDescription, String editor) {
+                                       String name, String role, String partnerDescription, String editor, String designTeamID, String projectContentID) {
         super(new FeaturedCollectionID());
         subscribe(new FeaturedCollectionChange(this));
-        appendChange(new FeaturedCollectionCreated(projectDescription, paragraph, name, role, partnerDescription, editor)).apply();
+        appendChange(new FeaturedCollectionCreated(projectDescription, paragraph, name, role, partnerDescription, editor, designTeamID, projectContentID)).apply();
     }
 
     private FeaturedCollectionAggregate(String ID) {
@@ -59,6 +63,7 @@ public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
         appendChange(new DescriptionContentPublished(title)).apply();
     }
 
+
     public void partnerApproved(){
         appendChange(new PartnerApproved());
     }
@@ -69,6 +74,14 @@ public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
 
     public void projectPublished(){
         appendChange(new ProjectPublished());
+    }
+
+    public void designTeam(String designTeamID){
+        this.designTeam = new DesignTeam(DesignTeamID.of(designTeamID));
+    }
+
+    public void projectContent(String designTeamID){
+        this.projectContent = new ProjectContent(ProjectContentID.of(designTeamID));
     }
 
     public Boolean verifyApprovment(){

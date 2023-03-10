@@ -1,16 +1,19 @@
 package com.Fashion.portfolio.domain.ID_project_agregate.commands;
 
 import com.Fashion.portfolio.generic.Command;
-import com.Fashion.portfolio.generic.DomainEvent;
 
 public class CreateIDProject extends Command {
 
     private final String projectDescription;
     private final String paragraph;
+    private final String designTeamID;
+    private final String projectContentID;
 
-    public CreateIDProject(String projectDescription, String paragraph) {
+    public CreateIDProject(String projectDescription, String paragraph, String designTeamID, String projectContentID) {
         this.projectDescription = projectDescription;
         this.paragraph = paragraph;
+        this.designTeamID = designTeamID;
+        this.projectContentID = projectContentID;
     }
 
     public String getProjectDescription() {
@@ -19,5 +22,13 @@ public class CreateIDProject extends Command {
 
     public String getParagraph() {
         return paragraph;
+    }
+
+    public String getDesignTeamID() {
+        return designTeamID;
+    }
+
+    public String getProjectContentID() {
+        return projectContentID;
     }
 }

@@ -5,25 +5,24 @@ import com.Fashion.portfolio.domain.ID_project_agregate.events.ProjectFinished;
 import com.Fashion.portfolio.domain.ID_project_agregate.events.ProjectStateChanged;
 import com.Fashion.portfolio.domain.ID_project_agregate.values.IDProjectID;
 import com.Fashion.portfolio.domain.ID_project_agregate.values.IDProjectState;
+import com.Fashion.portfolio.domain.common_project.DesignTeam;
 import com.Fashion.portfolio.domain.common_project.Project;
+import com.Fashion.portfolio.domain.common_project.ProjectContent;
 import com.Fashion.portfolio.domain.common_project.events.*;
-import com.Fashion.portfolio.domain.featured_collection_agregate.FeaturedCollectionAggregate;
-import com.Fashion.portfolio.domain.featured_collection_agregate.FeaturedCollectionChange;
-import com.Fashion.portfolio.domain.featured_collection_agregate.events.FeaturedCollectionCreated;
-import com.Fashion.portfolio.domain.featured_collection_agregate.values.FeaturedCollectionID;
+import com.Fashion.portfolio.domain.common_project.values.DesignTeamID;
+import com.Fashion.portfolio.domain.common_project.values.ProjectContentID;
 import com.Fashion.portfolio.generic.DomainEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class IDProjectAggregate extends Project<IDProjectID> {
 
     protected IDProjectState state;
 
-    public IDProjectAggregate(String projectDescription, String paragraph) {
+    public IDProjectAggregate(String projectDescription, String paragraph, String designTeamID, String projectContentID) {
         super(new IDProjectID());
         subscribe(new IDProjectChange(this));
-        appendChange(new IDProjectCreated(projectDescription, paragraph)).apply();
+        appendChange(new IDProjectCreated(projectDescription, paragraph, designTeamID, projectContentID)).apply();
     }
 
     private IDProjectAggregate(String ID) {
@@ -49,32 +48,40 @@ public class IDProjectAggregate extends Project<IDProjectID> {
     }
 
 
-    public void mediaContentAdded(String title, String description, String author, String URL){
+    public void mediaContentAdded(String title, String description, String author, String URL) {
         appendChange(new MediaContentAdded(title, description, author, URL)).apply();
     }
 
-    public void descriptionContentAdded(String title, String description, String author, String paragraph){
+    public void descriptionContentAdded(String title, String description, String author, String paragraph) {
         appendChange(new DescriptionContentAdded(title, description, author, paragraph)).apply();
     }
 
-    public void descriptionContentPublished(String title){
+    public void descriptionContentPublished(String title) {
         appendChange(new DescriptionContentPublished(title)).apply();
     }
 
-    public void mediaContentPublished(String title){
+    public void mediaContentPublished(String title) {
         appendChange(new MediaContentPublished(title)).apply();
     }
 
-    public void projectFinished(){
+    public void projectFinished() {
         appendChange(new ProjectFinished());
     }
 
-    public void projectStateChanged(String newState){
+    public void projectStateChanged(String newState) {
         appendChange(new ProjectStateChanged(newState));
     }
 
-    public Boolean verifyProjectFinished(){
+    public Boolean verifyProjectFinished() {
         return this.state.value().isActive();
+    }
+
+    public void designTeam(String designTeamID) {
+        this.designTeam = new DesignTeam(DesignTeamID.of(designTeamID));
+    }
+
+    public void projectContent(String designTeamID) {
+        this.projectContent = new ProjectContent(ProjectContentID.of(designTeamID));
     }
 
     protected Boolean removeDesigner(String name) {
@@ -94,11 +101,11 @@ public class IDProjectAggregate extends Project<IDProjectID> {
         addProjectDescriptionContent(title, description, author, paragraph);
     }
 
-    protected void publishDescriptionContent (String title){
+    protected void publishDescriptionContent(String title) {
         publishDescription(title);
     }
 
-    protected void publishMediaContent (String title){
+    protected void publishMediaContent(String title) {
         publishMedia(title);
     }
 }

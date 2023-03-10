@@ -9,17 +9,17 @@ import com.Fashion.portfolio.generic.DomainEvent;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class createIDProjectUseCase implements UseCaseCommand<CreateIDProject> {
+public class CreateIDProjectUseCase implements UseCaseCommand<CreateIDProject> {
 
     private final EventRepository eventRepository;
 
-    public createIDProjectUseCase(EventRepository eventRepository) {
+    public CreateIDProjectUseCase(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
     }
 
     @Override
     public List<DomainEvent> apply(CreateIDProject command) {
-        IDProjectAggregate project= new IDProjectAggregate(command.getProjectDescription(), command.getParagraph());
+        IDProjectAggregate project= new IDProjectAggregate(command.getProjectDescription(), command.getParagraph(), command.getDesignTeamID(), command.getProjectContentID());
         return project.getUncommittedChanges().stream().map(eventRepository::saveEvent).collect(Collectors.toList());
     }
 }
