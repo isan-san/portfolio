@@ -43,5 +43,22 @@ public class ProjectContent extends Entity<ProjectContentID> {
         }
     }
 
+    protected DescriptionContent publishDescription(String title){
+        return descriptionContents.stream().filter(content -> content.value().title().equals(title)).findAny().map(content->{
+            DescriptionContent newContent = content.publish();
+            descriptionContents.remove(content);
+            descriptionContents.add(newContent);
+            return newContent;
+        }).orElse(null);
+    }
+    protected MediaContent publishMedia(String title){
+        return mediaContents.stream().filter(content -> content.value().title().equals(title)).findAny().map(content->{
+            MediaContent newContent = content.publish();
+            mediaContents.remove(content);
+            mediaContents.add(newContent);
+            return newContent;
+        }).orElse(null);
+    }
+
 
 }

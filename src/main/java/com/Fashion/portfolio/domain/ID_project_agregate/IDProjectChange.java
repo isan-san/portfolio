@@ -1,10 +1,7 @@
 package com.Fashion.portfolio.domain.ID_project_agregate;
 
 import com.Fashion.portfolio.domain.ID_project_agregate.values.IDProjectState;
-import com.Fashion.portfolio.domain.common_project.events.DescriptionContentAdded;
-import com.Fashion.portfolio.domain.common_project.events.DesignerAdded;
-import com.Fashion.portfolio.domain.common_project.events.DesignerRemoved;
-import com.Fashion.portfolio.domain.common_project.events.MediaContentAdded;
+import com.Fashion.portfolio.domain.common_project.events.*;
 import com.Fashion.portfolio.domain.featured_collection_agregate.FeaturedCollectionAggregate;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.FeaturedCollectionCreated;
 import com.Fashion.portfolio.generic.EventChange;
@@ -28,6 +25,12 @@ public class IDProjectChange extends EventChange {
         });
         apply((DescriptionContentAdded event) -> {
             project.addDescriptionContent(event.getTitle(), event.getDescription(), event.getAuthor(), event.getParagraph());
+        });
+        apply((DescriptionContentPublished event) -> {
+            project.publishDescriptionContent(event.getContentTitle());
+        });
+        apply((MediaContentPublished event) -> {
+            project.publishMediaContent(event.getContentTitle());
         });
 
     }

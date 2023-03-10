@@ -11,6 +11,16 @@ public class MediaContent extends Content implements ValueObject<MediaContent.Pr
         this.mediaURL = mediaURL;
     }
 
+    private MediaContent(String title, String description, String author, String mediaURL, Boolean isPublic) {
+        super(title, description, author, isPublic);
+        this.mediaURL = mediaURL;
+    }
+
+    @Override
+    public MediaContent publish() {
+        return new MediaContent(this.title, this.description, this.author, this.mediaURL, true);
+    }
+
     @Override
     public Props value() {
         return new Props() {

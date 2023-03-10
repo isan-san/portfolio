@@ -4,10 +4,7 @@ import com.Fashion.portfolio.domain.ID_project_agregate.events.IDProjectCreated;
 import com.Fashion.portfolio.domain.ID_project_agregate.values.IDProjectID;
 import com.Fashion.portfolio.domain.ID_project_agregate.values.IDProjectState;
 import com.Fashion.portfolio.domain.common_project.Project;
-import com.Fashion.portfolio.domain.common_project.events.DescriptionContentAdded;
-import com.Fashion.portfolio.domain.common_project.events.DesignerAdded;
-import com.Fashion.portfolio.domain.common_project.events.DesignerRemoved;
-import com.Fashion.portfolio.domain.common_project.events.MediaContentAdded;
+import com.Fashion.portfolio.domain.common_project.events.*;
 import com.Fashion.portfolio.domain.featured_collection_agregate.FeaturedCollectionAggregate;
 import com.Fashion.portfolio.domain.featured_collection_agregate.FeaturedCollectionChange;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.FeaturedCollectionCreated;
@@ -58,6 +55,14 @@ public class IDProjectAggregate extends Project<IDProjectID> {
         appendChange(new DescriptionContentAdded(title, description, author, paragraph)).apply();
     }
 
+    public void descriptionContentPublished(String title){
+        appendChange(new DescriptionContentPublished(title)).apply();
+    }
+
+    public void mediaContentPublished(String title){
+        appendChange(new MediaContentPublished(title)).apply();
+    }
+
     protected Boolean removeDesigner(String name) {
         return removeDesigner(name);
     }
@@ -73,5 +78,13 @@ public class IDProjectAggregate extends Project<IDProjectID> {
 
     protected void addDescriptionContent(String title, String description, String author, String paragraph) {
         addProjectDescriptionContent(title, description, author, paragraph);
+    }
+
+    protected void publishDescriptionContent (String title){
+        publishDescription(title);
+    }
+
+    protected void publishMediaContent (String title){
+        publishMedia(title);
     }
 }

@@ -1,10 +1,7 @@
 package com.Fashion.portfolio.domain.own_collection_agregate;
 
 import com.Fashion.portfolio.domain.common_project.Project;
-import com.Fashion.portfolio.domain.common_project.events.DescriptionContentAdded;
-import com.Fashion.portfolio.domain.common_project.events.DesignerAdded;
-import com.Fashion.portfolio.domain.common_project.events.DesignerRemoved;
-import com.Fashion.portfolio.domain.common_project.events.MediaContentAdded;
+import com.Fashion.portfolio.domain.common_project.events.*;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.PublishingInformation;
 import com.Fashion.portfolio.domain.own_collection_agregate.events.OwnCollectionCreated;
 import com.Fashion.portfolio.domain.own_collection_agregate.values.OwnCollectionID;
@@ -54,6 +51,14 @@ public class OwnCollectionAggregate extends Project<OwnCollectionID> {
         appendChange(new DescriptionContentAdded(title, description, author, paragraph)).apply();
     }
 
+    public void descriptionContentPublished(String title){
+        appendChange(new DescriptionContentPublished(title)).apply();
+    }
+
+    public void mediaContentPublished(String title){
+        appendChange(new MediaContentPublished(title)).apply();
+    }
+
     protected Boolean removeDesigner(String name) {
         return removeDesigner(name);
     }
@@ -68,5 +73,13 @@ public class OwnCollectionAggregate extends Project<OwnCollectionID> {
 
     protected void addDescriptionContent(String title, String description, String author, String paragraph) {
         addProjectDescriptionContent(title, description, author, paragraph);
+    }
+
+    protected void publishDescriptionContent (String title){
+        publishDescription(title);
+    }
+
+    protected void publishMediaContent (String title){
+        publishMedia(title);
     }
 }

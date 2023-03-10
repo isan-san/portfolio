@@ -1,7 +1,7 @@
 package com.Fashion.portfolio.domain.common_project.values;
 
 
-public class Content {
+public abstract class Content {
 
     protected final String title;
     protected final String description;
@@ -22,5 +22,6 @@ public class Content {
         this.isPublic = isPublic;
     }
 
+    public abstract <T extends Content> T publish();
 
 }

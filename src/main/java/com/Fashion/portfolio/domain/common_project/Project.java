@@ -29,7 +29,7 @@ public class Project<T extends Identity> extends AggregateRoot<T> {
                 description,
                 paragraph,
                 "Design Team",
-                true));
+                null));
     }
 
     protected void addDesigner(String name, String role, String description) {
@@ -52,9 +52,17 @@ public class Project<T extends Identity> extends AggregateRoot<T> {
         this.projectContent.addContent(new DescriptionContent(title, description, author, paragraph));
     }
 
+    protected void publishDescription(String title){
+        publishDescription(title);
+    }
+    protected void publishMedia(String title){
+        publishMedia(title);
+    }
+
     public Boolean verifyContent(String title) {
         return projectContent.descriptionContents().stream().noneMatch(designer -> designer.value().title().equals(title))||projectContent.mediaContents().stream().noneMatch(designer -> designer.value().title().equals(title));
     }
+
 
 
 }

@@ -1,10 +1,7 @@
 package com.Fashion.portfolio.domain.featured_collection_agregate;
 
 import com.Fashion.portfolio.domain.common_project.Project;
-import com.Fashion.portfolio.domain.common_project.events.DescriptionContentAdded;
-import com.Fashion.portfolio.domain.common_project.events.DesignerAdded;
-import com.Fashion.portfolio.domain.common_project.events.DesignerRemoved;
-import com.Fashion.portfolio.domain.common_project.events.MediaContentAdded;
+import com.Fashion.portfolio.domain.common_project.events.*;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.FeaturedCollectionCreated;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.FeaturedCollectionID;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.FeaturedPartner;
@@ -56,6 +53,14 @@ public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
         appendChange(new DescriptionContentAdded(title, description, author, paragraph)).apply();
     }
 
+    public void descriptionContentPublished(String title){
+        appendChange(new DescriptionContentPublished(title)).apply();
+    }
+
+    public void mediaContentPublished(String title){
+        appendChange(new MediaContentPublished(title)).apply();
+    }
+
     protected Boolean removeDesigner(String name) {
         return removeDesigner(name);
     }
@@ -64,7 +69,6 @@ public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
         addDesigner(name, role, description);
     }
 
-
     protected void addMediaContent(String title, String description, String author, String URL) {
         addProjectMediaContent(title, description, author, URL);
     }
@@ -72,4 +76,13 @@ public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
     protected void addDescriptionContent(String title, String description, String author, String paragraph) {
         addProjectDescriptionContent(title, description, author, paragraph);
     }
+
+    protected void publishDescriptionContent (String title){
+        publishDescription(title);
+    }
+
+    protected void publishMediaContent (String title){
+        publishMedia(title);
+    }
+
 }

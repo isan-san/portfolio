@@ -12,15 +12,22 @@ public class DescriptionContent extends Content implements ValueObject<Descripti
         this.paragraph = paragraph;
         this.relatedMedia = relatedMedia;
     }
+
     public DescriptionContent(String title, String description, String author, String paragraph) {
         super(title, description, author);
         this.paragraph = paragraph;
         this.relatedMedia = null;
     }
-    public DescriptionContent(String title, String description, String author, String paragraph, Boolean isPublic) {
+
+    public DescriptionContent(String title, String description, String author, String paragraph, MediaContent relatedMedia, Boolean isPublic) {
         super(title, description, author, isPublic);
         this.paragraph = paragraph;
-        this.relatedMedia = null;
+        this.relatedMedia = relatedMedia;
+    }
+
+    @Override
+    public DescriptionContent publish() {
+        return new DescriptionContent(this.title, this.description, this.author, this.paragraph, this.relatedMedia, true);
     }
 
     @Override
@@ -58,12 +65,17 @@ public class DescriptionContent extends Content implements ValueObject<Descripti
         };
     }
 
-    public interface Props{
+    public interface Props {
         String title();
+
         String description();
+
         String author();
+
         Boolean isPublic();
+
         String paragraph();
+
         MediaContent relatedMedia();
     }
 
