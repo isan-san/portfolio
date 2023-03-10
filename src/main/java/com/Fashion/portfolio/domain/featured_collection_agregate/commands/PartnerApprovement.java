@@ -1,0 +1,16 @@
+package com.Fashion.portfolio.domain.featured_collection_agregate.commands;
+
+import com.Fashion.portfolio.generic.Command;
+
+public class PartnerApprovement extends Command {
+
+    private final String projectID;
+
+    public PartnerApprovement(String projectID) {
+        this.projectID = projectID;
+    }
+
+    public String getProjectID() {
+        return projectID;
+    }
+}

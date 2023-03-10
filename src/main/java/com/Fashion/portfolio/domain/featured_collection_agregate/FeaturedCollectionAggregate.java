@@ -3,6 +3,7 @@ package com.Fashion.portfolio.domain.featured_collection_agregate;
 import com.Fashion.portfolio.domain.common_project.Project;
 import com.Fashion.portfolio.domain.common_project.events.*;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.FeaturedCollectionCreated;
+import com.Fashion.portfolio.domain.featured_collection_agregate.events.PartnerApproved;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.FeaturedCollectionID;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.FeaturedPartner;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.PublishingInformation;
@@ -55,6 +56,14 @@ public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
 
     public void descriptionContentPublished(String title){
         appendChange(new DescriptionContentPublished(title)).apply();
+    }
+
+    public void partnerApproved(){
+        appendChange(new PartnerApproved());
+    }
+
+    public Boolean verifyApprovment(){
+        return this.publishingInformation.value().partnerAproval();
     }
 
     public void mediaContentPublished(String title){
