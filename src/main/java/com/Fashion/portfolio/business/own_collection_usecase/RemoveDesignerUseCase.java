@@ -3,7 +3,6 @@ package com.Fashion.portfolio.business.own_collection_usecase;
 import com.Fashion.portfolio.business.common.EventRepository;
 import com.Fashion.portfolio.business.common.UseCaseCommand;
 import com.Fashion.portfolio.domain.common_project.commands.RemoveDesigner;
-import com.Fashion.portfolio.domain.featured_collection_agregate.FeaturedCollectionAggregate;
 import com.Fashion.portfolio.domain.own_collection_agregate.OwnCollectionAggregate;
 import com.Fashion.portfolio.generic.DomainEvent;
 

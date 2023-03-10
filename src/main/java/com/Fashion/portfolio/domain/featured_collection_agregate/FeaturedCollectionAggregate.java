@@ -4,6 +4,7 @@ import com.Fashion.portfolio.domain.common_project.Project;
 import com.Fashion.portfolio.domain.common_project.events.*;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.FeaturedCollectionCreated;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.PartnerApproved;
+import com.Fashion.portfolio.domain.featured_collection_agregate.events.ProjectPublished;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.FeaturedCollectionID;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.FeaturedPartner;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.PublishingInformation;
@@ -62,12 +63,20 @@ public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
         appendChange(new PartnerApproved());
     }
 
+    public void mediaContentPublished(String title) {
+        appendChange(new MediaContentPublished(title)).apply();
+    }
+
+    public void projectPublished(){
+        appendChange(new ProjectPublished());
+    }
+
     public Boolean verifyApprovment(){
         return this.publishingInformation.value().partnerAproval();
     }
 
-    public void mediaContentPublished(String title){
-        appendChange(new MediaContentPublished(title)).apply();
+    public Boolean verifyPublished(){
+        return this.publishingInformation.value().isPublished();
     }
 
     protected Boolean removeDesigner(String name) {

@@ -2,12 +2,12 @@ package com.Fashion.portfolio.domain.own_collection_agregate;
 
 import com.Fashion.portfolio.domain.common_project.Project;
 import com.Fashion.portfolio.domain.common_project.events.*;
-import com.Fashion.portfolio.domain.featured_collection_agregate.values.PublishingInformation;
 import com.Fashion.portfolio.domain.own_collection_agregate.events.OwnCollectionCreated;
+import com.Fashion.portfolio.domain.own_collection_agregate.events.ProjectPublished;
 import com.Fashion.portfolio.domain.own_collection_agregate.values.OwnCollectionID;
+import com.Fashion.portfolio.domain.own_collection_agregate.values.PublishingInformation;
 import com.Fashion.portfolio.generic.DomainEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OwnCollectionAggregate extends Project<OwnCollectionID> {
@@ -57,6 +57,14 @@ public class OwnCollectionAggregate extends Project<OwnCollectionID> {
 
     public void mediaContentPublished(String title){
         appendChange(new MediaContentPublished(title)).apply();
+    }
+
+    public void projectPublished(){
+        appendChange(new ProjectPublished());
+    }
+
+    public Boolean verifyPublished(){
+        return this.publishingInformation.value().isPublished();
     }
 
     protected Boolean removeDesigner(String name) {

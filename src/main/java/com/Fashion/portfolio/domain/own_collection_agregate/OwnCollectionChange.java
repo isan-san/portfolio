@@ -1,8 +1,9 @@
 package com.Fashion.portfolio.domain.own_collection_agregate;
 
 import com.Fashion.portfolio.domain.common_project.events.*;
-import com.Fashion.portfolio.domain.featured_collection_agregate.values.PublishingInformation;
 import com.Fashion.portfolio.domain.own_collection_agregate.events.OwnCollectionCreated;
+import com.Fashion.portfolio.domain.own_collection_agregate.events.ProjectPublished;
+import com.Fashion.portfolio.domain.own_collection_agregate.values.PublishingInformation;
 import com.Fashion.portfolio.generic.EventChange;
 
 public class OwnCollectionChange extends EventChange {
@@ -10,7 +11,7 @@ public class OwnCollectionChange extends EventChange {
     public OwnCollectionChange(OwnCollectionAggregate project) {
         apply((OwnCollectionCreated event) -> {
             project.firstProjectContent(event.getProjectDescription(), event.getParagraph());
-            project.publishingInformation = new PublishingInformation(event.getEditor(), partnerAproval);
+            project.publishingInformation = new PublishingInformation(event.getEditor());
         });
 
         apply((DesignerAdded event) -> {
@@ -30,6 +31,9 @@ public class OwnCollectionChange extends EventChange {
         });
         apply((MediaContentPublished event) -> {
             project.publishMediaContent(event.getContentTitle());
+        });
+        apply((ProjectPublished event) -> {
+            project.publishingInformation.publish();
         });
 
     }

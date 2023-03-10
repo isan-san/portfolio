@@ -4,8 +4,6 @@ import com.Fashion.portfolio.business.common.EventRepository;
 import com.Fashion.portfolio.business.common.UseCaseCommand;
 import com.Fashion.portfolio.domain.ID_project_agregate.IDProjectAggregate;
 import com.Fashion.portfolio.domain.ID_project_agregate.commands.CreateIDProject;
-import com.Fashion.portfolio.domain.featured_collection_agregate.FeaturedCollectionAggregate;
-import com.Fashion.portfolio.domain.featured_collection_agregate.commands.CreateFeaturedCollection;
 import com.Fashion.portfolio.generic.DomainEvent;
 
 import java.util.List;

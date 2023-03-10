@@ -16,7 +16,7 @@ public class PublishingInformation implements ValueObject<PublishingInformation.
         this.editor = editor;
     }
 
-    private PublishingInformation(String editor) {
+    public PublishingInformation(String editor) {
         this.isPublished = false;
         this.publishingDate = null;
         this.editor = editor;

@@ -3,6 +3,7 @@ package com.Fashion.portfolio.domain.featured_collection_agregate;
 import com.Fashion.portfolio.domain.common_project.events.*;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.FeaturedCollectionCreated;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.PartnerApproved;
+import com.Fashion.portfolio.domain.featured_collection_agregate.events.ProjectPublished;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.FeaturedPartner;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.PublishingInformation;
 import com.Fashion.portfolio.generic.EventChange;
@@ -36,6 +37,9 @@ public class FeaturedCollectionChange extends EventChange {
         });
         apply((PartnerApproved event) -> {
             project.publishingInformation.partnerApprovement();
+        });
+        apply((ProjectPublished event) -> {
+            project.publishingInformation.publish();
         });
     }
 
