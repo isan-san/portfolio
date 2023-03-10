@@ -29,7 +29,7 @@ public class PortfolioContent extends Entity<PortfolioContentID> {
         return this.mediaContents;
     }
 
-    public DescriptionContent addContent(DescriptionContent content) {
+    protected DescriptionContent addContent(DescriptionContent content) {
         if (descriptionContents.stream().noneMatch(contents -> contents.value().title().equals((content).value().title()))) {
             descriptionContents.add(content);
             return content;
@@ -38,7 +38,7 @@ public class PortfolioContent extends Entity<PortfolioContentID> {
         }
     }
 
-    public MediaContent addContent(MediaContent content) {
+    protected MediaContent addContent(MediaContent content) {
         if (mediaContents.stream().noneMatch(contents -> contents.value().title().equals((content).value().title()))) {
             mediaContents.add(content);
             return content;
@@ -47,12 +47,12 @@ public class PortfolioContent extends Entity<PortfolioContentID> {
         }
     }
 
-    public DescriptionContent findDescription(String title) {
+    protected DescriptionContent findDescription(String title) {
         Optional<DescriptionContent> newContent = this.descriptionContents.stream().filter(contents -> contents.value().title().equals(title)).findFirst();
         return newContent.flatMap(content -> newContent).orElse(null);
     }
 
-    public MediaContent findMedia(String title) {
+    protected MediaContent findMedia(String title) {
         Optional<MediaContent> newContent = this.mediaContents.stream().filter(contents -> contents.value().title().equals(title)).findFirst();
         return newContent.flatMap(content -> newContent).orElse(null);
     }

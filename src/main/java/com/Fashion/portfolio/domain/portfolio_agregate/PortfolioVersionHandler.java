@@ -34,5 +34,4 @@ public class PortfolioVersionHandler extends Entity<PortfolioVersionHandlerID> {
     public PortfolioVersion lastVersion(){
         return lastVersion;
     }
-
 }
