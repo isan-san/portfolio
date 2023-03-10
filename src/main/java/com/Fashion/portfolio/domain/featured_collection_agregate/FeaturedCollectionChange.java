@@ -1,11 +1,10 @@
 package com.Fashion.portfolio.domain.featured_collection_agregate;
 
-import com.Fashion.portfolio.domain.common_project.DesignTeam;
 import com.Fashion.portfolio.domain.common_project.events.*;
-import com.Fashion.portfolio.domain.common_project.values.DesignTeamID;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.FeaturedCollectionCreated;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.PartnerApproved;
 import com.Fashion.portfolio.domain.featured_collection_agregate.events.ProjectPublished;
+import com.Fashion.portfolio.domain.featured_collection_agregate.events.ProjectUnpublished;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.FeaturedPartner;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.PublishingInformation;
 import com.Fashion.portfolio.generic.EventChange;
@@ -22,7 +21,7 @@ public class FeaturedCollectionChange extends EventChange {
         });
 
         apply((DesignerAdded event) -> {
-            project.addDesigner(event.getDesignerName(), event.getDesignerRole(), event.getDesignerDescription());
+            project.addDesignerToTeam(event.getDesignerName(), event.getDesignerRole(), event.getDesignerDescription());
         });
         apply((DesignerRemoved event) -> {
             project.removeDesigner(event.getDesignerName());
@@ -40,10 +39,13 @@ public class FeaturedCollectionChange extends EventChange {
             project.publishMediaContent(event.getContentTitle());
         });
         apply((PartnerApproved event) -> {
-            project.publishingInformation.partnerApprovement();
+            project.publishingInformation = project.publishingInformation.partnerApprovement();
         });
         apply((ProjectPublished event) -> {
-            project.publishingInformation.publish();
+            project.publishingInformation = project.publishingInformation.publish();
+        });
+        apply((ProjectUnpublished event) -> {
+            project.publishingInformation = project.publishingInformation.unpublish();
         });
     }
 

@@ -22,11 +22,12 @@ public class PortfolioAggregate extends AggregateRoot<PortfolioID> {
     public PortfolioAggregate(LocalDate seasonStartDate, LocalDate seasonEndDate) {
         super(new PortfolioID());
         subscribe(new PortfolioChange(this));
-        appendChange(new PortfolioCreated(seasonStartDate, seasonEndDate));
+        appendChange(new PortfolioCreated(seasonStartDate, seasonEndDate)).apply();
     }
 
     private PortfolioAggregate(String ID) {
         super(PortfolioID.of(ID));
+        subscribe(new PortfolioChange(this));
     }
 
     public static PortfolioAggregate from(String ID, List<DomainEvent> events) {
@@ -36,23 +37,27 @@ public class PortfolioAggregate extends AggregateRoot<PortfolioID> {
     }
 
     public void publishPortfolioVersion(){
-        appendChange(new PortfolioVersionPublished());
+        appendChange(new PortfolioVersionPublished()).apply();
     }
 
     public void descriptionContentAppended(DescriptionContent content){
-        appendChange(new DescriptionContentAppended(content));
+        appendChange(new DescriptionContentAppended(content)).apply();
     }
 
     public void mediaContentAppended(MediaContent content){
-        appendChange(new MediaContentAppended(content));
+        appendChange(new MediaContentAppended(content)).apply();
     }
 
-    public void releasePortfolioVersion(){
-        this.versions.publishVersion(this.content.descriptionContents(),this.content.mediaContents());
-    }
 
     public void addFeaturedCollection(String projectID) {
-        appendChange(new FeaturedCollectionAdded(projectID));
+        appendChange(new FeaturedCollectionAdded(projectID)).apply();
+    }
+
+    public void discardSeasonProject(String projectID) {
+        appendChange(new FeaturedCollectionRemoved(projectID)).apply();
+    }
+    public void releasePortfolioVersion() {
+        this.versions.publishVersion(this.content.descriptionContents(), this.content.mediaContents());
     }
 
     public void addOwnCollection(String projectID) {

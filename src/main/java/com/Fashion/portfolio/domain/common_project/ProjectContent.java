@@ -16,6 +16,8 @@ public class ProjectContent extends Entity<ProjectContentID> {
 
     public ProjectContent(ProjectContentID id) {
         super(id);
+        this.descriptionContents = new ArrayList<>();
+        this.mediaContents = new ArrayList<>();
     }
 
     protected ArrayList<DescriptionContent> descriptionContents() {

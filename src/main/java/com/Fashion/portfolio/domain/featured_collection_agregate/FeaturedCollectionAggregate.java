@@ -8,9 +8,7 @@ import com.Fashion.portfolio.domain.common_project.values.DescriptionContent;
 import com.Fashion.portfolio.domain.common_project.values.DesignTeamID;
 import com.Fashion.portfolio.domain.common_project.values.MediaContent;
 import com.Fashion.portfolio.domain.common_project.values.ProjectContentID;
-import com.Fashion.portfolio.domain.featured_collection_agregate.events.FeaturedCollectionCreated;
-import com.Fashion.portfolio.domain.featured_collection_agregate.events.PartnerApproved;
-import com.Fashion.portfolio.domain.featured_collection_agregate.events.ProjectPublished;
+import com.Fashion.portfolio.domain.featured_collection_agregate.events.*;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.FeaturedCollectionID;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.FeaturedPartner;
 import com.Fashion.portfolio.domain.featured_collection_agregate.values.PublishingInformation;
@@ -32,6 +30,7 @@ public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
 
     private FeaturedCollectionAggregate(String ID) {
         super(FeaturedCollectionID.of(ID));
+        subscribe(new FeaturedCollectionChange(this));
     }
 
 
@@ -41,8 +40,8 @@ public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
         return project;
     }
 
-    protected void firstProjectContent(String projectDescription, String paragraph) {
-        firstContent(projectDescription, paragraph);
+    protected void firstProjectContent(String projectObjectiveDescription, String projectObjectiveParagraph) {
+        firstContent(projectObjectiveDescription, projectObjectiveParagraph);
     }
 
     public void designerAdded(String name, String role, String description) {
@@ -67,7 +66,11 @@ public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
 
 
     public void partnerApproved(){
-        appendChange(new PartnerApproved());
+        appendChange(new PartnerApproved()).apply();
+    }
+
+    public void partnerUnapproved(){
+        appendChange(new ProjectUnpublished()).apply();
     }
 
     public void mediaContentPublished(String title) {
@@ -75,7 +78,7 @@ public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
     }
 
     public void projectPublished(){
-        appendChange(new ProjectPublished());
+        appendChange(new ProjectPublished()).apply();
     }
 
     public void designTeam(String designTeamID){
@@ -98,7 +101,7 @@ public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
         return removeDesigner(name);
     }
 
-    protected void addDesigner(String name, String role, String description) {
+    protected void addDesignerToTeam(String name, String role, String description) {
         addDesigner(name, role, description);
     }
 
@@ -110,11 +113,11 @@ public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
         addProjectDescriptionContent(title, description, author, paragraph);
     }
 
-    protected void publishDescriptionContent (String title){
+    protected void publishDescriptionContent(String title){
         publishDescription(title);
     }
 
-    protected void publishMediaContent (String title){
+    protected void publishMediaContent(String title){
         publishMedia(title);
     }
 

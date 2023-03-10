@@ -16,6 +16,7 @@ public class PortfolioVersionHandler extends Entity<PortfolioVersionHandlerID> {
 
     public PortfolioVersionHandler(PortfolioVersionHandlerID id) {
         super(id);
+        versions = new ArrayList<>();
         this.lastVersion = new PortfolioVersion();
         versions.add(lastVersion);
     }

@@ -29,10 +29,10 @@ public class OwnCollectionChange extends EventChange {
             project.addDescriptionContent(event.getTitle(), event.getDescription(), event.getAuthor(), event.getParagraph());
         });
         apply((DescriptionContentPublished event) -> {
-            project.publishDescriptionContent(event.getContentTitle());
+            project.publishDescription(event.getContentTitle());
         });
         apply((MediaContentPublished event) -> {
-            project.publishMediaContent(event.getContentTitle());
+            project.publishMedia(event.getContentTitle());
         });
         apply((ProjectPublished event) -> {
             project.publishingInformation.publish();

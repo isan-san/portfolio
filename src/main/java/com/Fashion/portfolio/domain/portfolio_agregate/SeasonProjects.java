@@ -18,6 +18,9 @@ public class SeasonProjects extends Entity<SeasonProjectsID> {
 
     public SeasonProjects(SeasonProjectsID id) {
         super(id);
+        this.idProjects = new ArrayList<>();
+        this.featuredCollections = new ArrayList<>();
+        this.ownCollections = new ArrayList<>();
     }
 
     public IDProjectID addProject(IDProjectID ID) {
@@ -44,6 +47,7 @@ public class SeasonProjects extends Entity<SeasonProjectsID> {
             return null;
         }
     }
+
 
     public Boolean removeProject(IDProjectID ID) {
         return idProjects.removeIf((project -> project.equals(ID)));

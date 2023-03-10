@@ -95,11 +95,11 @@ public class OwnCollectionAggregate extends Project<OwnCollectionID> {
         addProjectDescriptionContent(title, description, author, paragraph);
     }
 
-    protected void publishDescriptionContent (String title){
-        publishDescription(title);
+    protected void publishDescription(String title){
+        this.publishDescription(title);
     }
 
-    protected void publishMediaContent (String title){
+    protected void publishMedia(String title){
         publishMedia(title);
     }
 }

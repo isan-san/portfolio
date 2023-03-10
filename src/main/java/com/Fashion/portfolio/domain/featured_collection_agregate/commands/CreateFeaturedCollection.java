@@ -10,18 +10,15 @@ public class CreateFeaturedCollection extends Command {
     private final String role;
     private final String partnerDescription;
     private final String editor;
-    private final String designTeamID;
-    private final String projectContentID;
 
-    public CreateFeaturedCollection(String projectDescription, String paragraph, String name, String role, String partnerDescription, String author, String designTeamID, String projectContentID) {
+
+    public CreateFeaturedCollection(String projectDescription, String paragraph, String name, String role, String partnerDescription, String author) {
         this.projectDescription = projectDescription;
         this.paragraph = paragraph;
         this.name = name;
         this.role = role;
         this.partnerDescription = partnerDescription;
         this.editor = author;
-        this.designTeamID = designTeamID;
-        this.projectContentID = projectContentID;
     }
 
     public String getProjectDescription() {
@@ -53,11 +50,4 @@ public class CreateFeaturedCollection extends Command {
         return editor;
     }
 
-    public String getDesignTeamID() {
-        return designTeamID;
-    }
-
-    public String getProjectContentID() {
-        return projectContentID;
-    }
 }

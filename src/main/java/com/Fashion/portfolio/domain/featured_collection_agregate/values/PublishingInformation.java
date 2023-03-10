@@ -25,15 +25,19 @@ public class PublishingInformation implements ValueObject<PublishingInformation.
         this.editor = editor;
     }
 
-    public PublishingInformation publish(){
+    public PublishingInformation publish() {
         if (this.partnerAproval) {
             return new PublishingInformation(true, LocalDate.now(), this.editor, true);
-        }else{
+        } else {
             return null;
         }
     }
 
-    public PublishingInformation partnerApprovement(){
+    public PublishingInformation unpublish() {
+        return new PublishingInformation(false, null, this.editor, false);
+    }
+
+    public PublishingInformation partnerApprovement() {
         return new PublishingInformation(this.isPublished, this.publishingDate, this.editor, true);
     }
 
@@ -64,8 +68,11 @@ public class PublishingInformation implements ValueObject<PublishingInformation.
 
     public interface Props {
         Boolean isPublished();
+
         LocalDate publishingDate();
+
         String editor();
+
         Boolean partnerAproval();
     }
 }

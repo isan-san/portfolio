@@ -8,12 +8,12 @@ public class DescriptionContentAdded extends DomainEvent {
     private final String author;
     private final String paragraph;
 
-    public DescriptionContentAdded(String title, String description, String author, String url) {
+    public DescriptionContentAdded(String title, String description, String author, String paragraph) {
         super("franco.isan.DescriptionContentAdded");
         this.title = title;
         this.description = description;
         this.author = author;
-        paragraph = url;
+        this.paragraph = paragraph;
     }
 
     public String getTitle() {

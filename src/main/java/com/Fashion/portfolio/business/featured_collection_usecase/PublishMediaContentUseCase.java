@@ -23,7 +23,7 @@ public class PublishMediaContentUseCase implements UseCaseCommand<PublishMediaCo
     public List<DomainEvent> apply(PublishMediaContent command) {
         List<DomainEvent> events = eventRepository.findByAggregateRootId(command.getProjectID());
         FeaturedCollectionAggregate collection = FeaturedCollectionAggregate.from(command.getProjectID(), events);
-        if (collection.verifyContent(command.getContentTitle())) {
+        if (!collection.verifyContent(command.getContentTitle())) {
             collection.mediaContentPublished(command.getContentTitle());
             return collection.getUncommittedChanges().stream().map(eventRepository::saveEvent).collect(Collectors.toList());
         } else {

@@ -22,7 +22,7 @@ public class PublishDescriptionContentUseCase implements UseCaseCommand<PublishD
     public List<DomainEvent> apply(PublishDescriptionContent command) {
         List<DomainEvent> events = eventRepository.findByAggregateRootId(command.getProjectID());
         FeaturedCollectionAggregate collection = FeaturedCollectionAggregate.from(command.getProjectID(), events);
-        if (collection.verifyContent(command.getContentTitle())) {
+        if (!collection.verifyContent(command.getContentTitle())) {
             collection.descriptionContentPublished(command.getContentTitle());
             return collection.getUncommittedChanges().stream().map(eventRepository::saveEvent).collect(Collectors.toList());
         } else {

@@ -38,6 +38,9 @@ public class PortfolioChange extends EventChange {
         apply((MediaContentAppended event)->{
             portfolio.appendMediaContent(event.getContent());
         });
+        apply((FeaturedCollectionRemoved event)->{
+            portfolio.seasonProjects.removeProject(FeaturedCollectionID.of(event.getCollectionID()));
+        });
     }
 
 }

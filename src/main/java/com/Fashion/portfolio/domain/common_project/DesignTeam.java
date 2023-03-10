@@ -14,6 +14,7 @@ public class DesignTeam extends Entity<DesignTeamID> {
 
     public DesignTeam(DesignTeamID ID) {
         super(ID);
+        this.designers = new ArrayList<>();
     }
 
     public ArrayList<Designer> designers() {

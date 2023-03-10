@@ -11,12 +11,12 @@ public class AddDescriptionContent extends Command {
 
 
 
-    public AddDescriptionContent(String title, String description, String author, String url, String projectID, String projectID1) {
+    public AddDescriptionContent(String title, String description, String author, String paragraph, String projectID) {
         this.title = title;
         this.description = description;
         this.author = author;
-        paragraph = url;
-        this.projectID = projectID1;
+        this.paragraph = paragraph;
+        this.projectID = projectID;
     }
 
     public String getTitle() {

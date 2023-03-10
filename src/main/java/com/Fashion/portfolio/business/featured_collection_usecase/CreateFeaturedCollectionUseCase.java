@@ -2,6 +2,8 @@ package com.Fashion.portfolio.business.featured_collection_usecase;
 
 import com.Fashion.portfolio.business.common.EventRepository;
 import com.Fashion.portfolio.business.common.UseCaseCommand;
+import com.Fashion.portfolio.domain.common_project.values.DesignTeamID;
+import com.Fashion.portfolio.domain.common_project.values.ProjectContentID;
 import com.Fashion.portfolio.domain.featured_collection_agregate.FeaturedCollectionAggregate;
 import com.Fashion.portfolio.domain.featured_collection_agregate.commands.CreateFeaturedCollection;
 import com.Fashion.portfolio.generic.DomainEvent;
@@ -19,7 +21,7 @@ public class CreateFeaturedCollectionUseCase implements UseCaseCommand<CreateFea
 
     @Override
     public List<DomainEvent> apply(CreateFeaturedCollection command) {
-        FeaturedCollectionAggregate collection= new FeaturedCollectionAggregate(command.getProjectDescription(), command.getParagraph(), command.getName(), command.getRole(), command.getPartnerDescription(), command.getEditor(), command.getDesignTeamID(), command.getProjectContentID());
+        FeaturedCollectionAggregate collection= new FeaturedCollectionAggregate(command.getProjectDescription(), command.getParagraph(), command.getName(), command.getRole(), command.getPartnerDescription(), command.getEditor(), new DesignTeamID().value(), new ProjectContentID().value());
         return collection.getUncommittedChanges().stream().map(eventRepository::saveEvent).collect(Collectors.toList());
     }
 }

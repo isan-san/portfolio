@@ -10,6 +10,7 @@ public class CreatePortfolio extends Command {
     private final LocalDate seasonStartDate;
     private final LocalDate seasonEndDate;
 
+
     public CreatePortfolio(LocalDate seasonStartDate, LocalDate seasonEndDate) {
         this.seasonStartDate = seasonStartDate;
         this.seasonEndDate = seasonEndDate;

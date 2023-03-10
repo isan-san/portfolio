@@ -4,18 +4,17 @@ import com.Fashion.portfolio.business.common.EventRepository;
 import com.Fashion.portfolio.business.common.UseCaseCommand;
 import com.Fashion.portfolio.domain.featured_collection_agregate.FeaturedCollectionAggregate;
 import com.Fashion.portfolio.domain.portfolio_agregate.PortfolioAggregate;
-import com.Fashion.portfolio.domain.portfolio_agregate.commands.AppendDescriptionContent;
 import com.Fashion.portfolio.domain.portfolio_agregate.commands.AppendMediaContent;
 import com.Fashion.portfolio.generic.DomainEvent;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AppendMediaContentUseCase implements UseCaseCommand<AppendMediaContent> {
+public class AppendMediaContentFromFeaturedProjectUseCase implements UseCaseCommand<AppendMediaContent> {
 
     private final EventRepository eventRepository;
 
-    public AppendMediaContentUseCase(EventRepository eventRepository) {
+    public AppendMediaContentFromFeaturedProjectUseCase(EventRepository eventRepository) {
         this.eventRepository = eventRepository;
     }
 
