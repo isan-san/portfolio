@@ -22,7 +22,7 @@ public class PartnerApprovementUseCase implements UseCaseCommand<PartnerApprovem
     public List<DomainEvent> apply(PartnerApprovement command) {
         List<DomainEvent> events = eventRepository.findByAggregateRootId(command.getProjectID());
         FeaturedCollectionAggregate collection = FeaturedCollectionAggregate.from(command.getProjectID(), events);
-        if (collection.verifyApprovment()) {
+        if (!collection.verifyApprovment()) {
             collection.partnerApproved();
             return collection.getUncommittedChanges().stream().map(eventRepository::saveEvent).collect(Collectors.toList());
         } else {

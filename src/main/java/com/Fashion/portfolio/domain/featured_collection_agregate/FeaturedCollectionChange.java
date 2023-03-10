@@ -24,7 +24,7 @@ public class FeaturedCollectionChange extends EventChange {
             project.addDesignerToTeam(event.getDesignerName(), event.getDesignerRole(), event.getDesignerDescription());
         });
         apply((DesignerRemoved event) -> {
-            project.removeDesigner(event.getDesignerName());
+            project.removeDesignerFromTeam(event.getDesignerName());
         });
         apply((MediaContentAdded event) -> {
             project.addMediaContent(event.getTitle(), event.getDescription(), event.getAuthor(), event.getURL());

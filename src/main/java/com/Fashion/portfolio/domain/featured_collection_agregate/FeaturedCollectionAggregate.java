@@ -97,7 +97,7 @@ public class FeaturedCollectionAggregate extends Project<FeaturedCollectionID> {
         return this.publishingInformation.value().isPublished();
     }
 
-    protected Boolean removeDesigner(String name) {
+    protected Boolean removeDesignerFromTeam(String name) {
         return removeDesigner(name);
     }
 
