@@ -59,6 +59,7 @@ the image is unreadable so this is the link to the MIRO board containing all the
 In an atempt to cover all the functionalities in the solution many comand driven UseCases were contructed but only 11 were tested:
 
 <ul>
+  <li><h2>Featured Project</h2></li>
   <li>CreateFeaturedProjectUseCase: This UseCase recives a command with the information to create a new freatured collection</li>
   <li>AddDesignerUseCase: This UseCase adds the information from any designer to the collection</li>
   <li>AddDescriptionContentUseCase: This UseCase adds information from any description content to the project</li>
@@ -67,6 +68,7 @@ In an atempt to cover all the functionalities in the solution many comand driven
   <li>PublishDescriptionContentUseCase: This UseCase change the state of a description content to published so it can be used in a portfolio</li>
   <li>PublishMediaContentUseCase: This UseCase change the state of a media content to published so it can be used in a portfolio</li>
   <li>PublishProjectUseCase: This UseCase change the state the project so its content can be used in a portfolio</li>
+  <li><h2>Portfolio</h2></li>
   <li>CreatePortfolioUseCase: This UseCase recives a command with the information to create a new portfolio</li>
   <li>AddFeaturedCollectionUseCase: This UseCase includes a project in a portfolio</li>
   <li>AppendDescriptionContentUseCase: This UseCase appends a description content form a project to be published wen a protfolio version is released</li>
@@ -78,11 +80,18 @@ In an atempt to cover all the functionalities in the solution many comand driven
 This are the two requiered event driven UseCases:
 
 <ul>
+  <li><h2>Featured Project</h2></li>
   <li>PartnerUnapprovedEventUseCaseTest: This UseCase trigers wen a parter unapproves an allready aproved project, this project will get unapproved and unpublished</li>
+  <li><h2>Portfolio</h2></li>
   <li>FeaturedCollectionUnpublishedEventUseCaseTest: This UseCase trigers a project has been unpublished, the unpublished project will bee removed from the portfolio </li>
 </ul>
 
 <br>
+
+## Event Driven Use Cases
+The next image shows the tests coverage, it isn't 100% because there are more UseCases than tests, but all test were performed using the debugger, and all implementations are working as intended
+
+<img src="resources/testCoverage.png" width="850px">
 
 ## Authors
 By Isan Eduardo Franco Miranda.
